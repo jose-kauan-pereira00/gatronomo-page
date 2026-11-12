@@ -7,3 +7,4 @@ MongoDb: Database connections
 Passport:
 Passport-Local:
 Crypto:
+JsonWebToken(JWT):
