@@ -12,7 +12,15 @@ async function main(params) {
     app.use(cors());
 
     app.get('/', (req, res) => {
-        
+        res.send({
+            success: true,
+            statusCode: 200,
+            body: 'Welcome to MyGatronomy!'
+        })
+    });
+
+    app.listen(port, () => {
+        console.log(`Server Running on: http://${hostName}:${port}`);
     });
 
 
