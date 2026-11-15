@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import { Mongo } from './database/mongo';
+import { config } from 'dotenv';
+
+config();
 
 async function main(params) {
 
@@ -9,7 +12,11 @@ async function main(params) {
 
     const app = express();
 
-    const mongoConnections = await Mongo.connect({mongoConnectionsString: process.env.MONGO_CS, );
+    const mongoConnections = await Mongo.connect({
+        mongoConnectionsString: process.env.MONGO_CS, 
+        mongoDdName:process.env.MONGO_DB_NAME 
+    });
+    console.log(mongoConnections);
     
     app.use(express.json());
     app.use(cors());
