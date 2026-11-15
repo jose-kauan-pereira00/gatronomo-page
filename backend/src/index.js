@@ -8,6 +8,8 @@ async function main(params) {
     const port = 3000;
 
     const app = express();
+
+    const mongoConnections = await Mongo.connect({mongoConnectionsString: process.env.MONGO_CS, );
     
     app.use(express.json());
     app.use(cors());
