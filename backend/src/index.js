@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { Mongo } from './database/mongo';
+import { Mongo } from './database/mongo.js';
 import { config } from 'dotenv';
 
 config();
