@@ -8,3 +8,4 @@ Dependencies
 * Passport-Local: Middaleware
 * Crypto: cryptography
 * JsonWebToken(JWT): authentication
+* DotEnv:
