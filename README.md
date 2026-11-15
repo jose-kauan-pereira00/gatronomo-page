@@ -6,5 +6,5 @@ Dependencies
 * MongoDb: Database connections
 * Passport: Middleware
 * Passport-Local: Middaleware
-* Crypto:
-JsonWebToken(JWT):
+* Crypto: cryptography
+* JsonWebToken(JWT): authentication
