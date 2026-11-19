@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import { Mongo } from '../database/mongo.js';
 import jwt from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
+import { text } from 'stream/consumers';
 
 const collectionName = 'users';
 
@@ -21,12 +22,41 @@ passport.use(new LocalStrategy({ usernameField: 'email'}, async(email, password,
 
     crypto.pbkdf2(password, saltBuffer, 310000, 16, 'sha256', (err, hashedPassword) =>{
         if(err){
-           return callback(err, false); 
+           return callback(null, false); 
         }
 
         const userPassordBuffer = Buffer.from(use.password.buffer);
 
-        if(!)
+        if(!crypto.timingSafeEqual(userPassordBuffer, hashedPassword)){
+            return callback(null, false);
+        }
+
+        const {password, salt, ...rest} = user;
+
+        return callback(null, rest);
     });
 
 } ))
+
+const authRouter = express.Router();
+
+authRouter.post('/signup', async(req, res) => {
+    const checkUser = await Mongo.db
+    .collection(collectionName)
+    .findOne({email: req.body.email})
+
+    if(checkUser){
+        return res.status(500).send({
+            success: false,
+            statusCode: 500,
+            body:{
+                text: 'User alredy exists :)'
+            }
+        })
+    }
+
+    const salt =  crypto.randomBytes(16);
+    crypto.pbkdf2(req.body.password, salt, 310000, 16, 'sha256', async(err, hashedPassword) => {
+        
+    })
+})
