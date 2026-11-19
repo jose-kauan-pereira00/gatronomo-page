@@ -57,6 +57,46 @@ authRouter.post('/signup', async(req, res) => {
 
     const salt =  crypto.randomBytes(16);
     crypto.pbkdf2(req.body.password, salt, 310000, 16, 'sha256', async(err, hashedPassword) => {
-        
+        if(err){
+            return res.status(500).send({
+                success: false,
+                statusCode: 500,
+                body:{
+                    text: 'Error on crypto Password//',
+                    err: err
+                }
+            })
+        }
+
+        const result = await Mongo.db
+        .collection(collectionName)
+        .insertOne({
+           email: req.body.email,
+           password: hashedPassword,
+           salt
+        })
+
+        if(result.insertedId){
+            const user = await Mongo.db
+            .collection(collectionName)
+            .findOne({
+                _id: new ObjectId(result.insertedId)
+            })
+
+            const token = jwt.sign(user, 'secret');
+
+            return res.send({
+                success: true,
+                statusCode: 200,
+                body:{
+                    text: 'User created!',
+                    token,
+                    user,
+                    logged: true
+                }
+            })
+        }
     })
 })
+
+export default
