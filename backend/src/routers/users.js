@@ -7,4 +7,6 @@ const UsersControllers = new UsersControllers();
 
 usersRouter.get('/', async (req, res) => {
     const { success, statusCode, body } = await UsersControllers.getUsers();
+
+    res.status(statusCode).send({ success, statusCode, body });
 });
