@@ -27,7 +27,7 @@ export default class UsersDataAcess {
             .collection(collectionName)
             .findOneAndUpdate(
                 { _id: new ObjectId(userID) },
-                { Sset: userData },
+                { $set: userData },
             );
 
         return result;
