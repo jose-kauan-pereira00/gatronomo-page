@@ -18,7 +18,15 @@ export default class UsersDataAcess {
         const result = await Mongo.db
             .collection(collectionName)
             .findOneAndDelete({ _id: new ObjectId(userID) });
+
+        return result;
     }
 
-    async updateUser() {}
+    async updateUser(userID, userData) {
+        const result = await Mongo.db
+            .collection(collectionName)
+            .findOneAndDelete({ _id: new ObjectId(userID) });
+
+        return result;
+    }
 }
