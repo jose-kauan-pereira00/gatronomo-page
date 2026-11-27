@@ -5,13 +5,20 @@ import crypto from 'crypto';
 const collectionName = 'users';
 
 export default class UsersDataAcess {
-  async getUsers() {
-    const result = await Mongo.db.collectio(collectionName).find({}).toArray();
+    async getUsers() {
+        const result = await Mongo.db
+            .collectio(collectionName)
+            .find({})
+            .toArray();
 
-    return result;
-  }
+        return result;
+    }
 
-  async deleteUser() {}
+    async deleteUser(userID) {
+        const result = await Mongo.db
+            .collectio(collectionName)
+            .findOneAndDelete({ _id: new ObjectId(userID) });
+    }
 
-  async updateUser() {}
+    async updateUser() {}
 }
