@@ -7,8 +7,8 @@ const collectionName = 'users';
 export default class UsersDataAcess {
     async getUsers() {
         const result = await Mongo.db
-            .collectio(collectionName)
-            .find({})
+            .collection(collectionName)
+            .find()
             .toArray();
 
         return result;
@@ -16,7 +16,7 @@ export default class UsersDataAcess {
 
     async deleteUser(userID) {
         const result = await Mongo.db
-            .collectio(collectionName)
+            .collection(collectionName)
             .findOneAndDelete({ _id: new ObjectId(userID) });
     }
 
