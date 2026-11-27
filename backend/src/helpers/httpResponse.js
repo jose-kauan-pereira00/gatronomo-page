@@ -10,8 +10,14 @@ export const notFound = () => {
   return {
     success: false,
     statusCode: 400,
-    body: body,
+    body: 'Not Found',
   };
 };
 
-export const serverError = (body) => {};
+export const serverError = (body) => {
+  return {
+    success: false,
+    statusCode: 501,
+    body: 'Sever Error',
+  };
+};
